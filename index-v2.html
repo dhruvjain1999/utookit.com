@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tookit — Never Miss a Pill Again</title>
+  <meta name="description" content="A daily text. A phone call if you don't reply. An alert to someone you trust if needed. $2.99/month." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:  #FF6B35;
+      --cream:   #FFF8F2;
+      --black:   #111;
+      --warm:    #1A1209;
+      --mid:     #6B5E52;
+      --border:  #E8DDD5;
+      --green:   #2D6A4F;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      font-size: 17px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: none; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, backdrop-filter 0.3s;
+    }
+    .topbar.scrolled {
+      border-color: var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(255,248,242,0.88);
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--orange);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-right a {
+      font-size: 0.88rem;
+      color: var(--mid);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .nav-right a:hover { color: var(--black); }
+    .nav-pill {
+      background: var(--black) !important;
+      color: var(--cream) !important;
+      padding: 10px 24px !important;
+      border-radius: 100px !important;
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .nav-pill:hover { background: var(--orange) !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 48px 80px;
+      padding-top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(120px, 20vw, 260px);
+      color: var(--border);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 60px;
+    }
+    .hero-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--black);
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--orange);
+    }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 24px;
+      padding-bottom: 8px;
+      min-width: 260px;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 240px;
+      text-align: right;
+      line-height: 1.6;
+    }
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn-main:hover { transform: translateY(-2px); background: #e55a24; }
+    .btn-main svg { transition: transform 0.2s; }
+    .btn-main:hover svg { transform: translateX(4px); }
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .badge {
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--mid);
+      letter-spacing: 0.03em;
+      background: #fff;
+    }
+    .badge.orange { border-color: #ffd0bb; color: var(--orange); background: #fff8f5; }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--border);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--border), transparent);
+      animation: scrollDown 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%, 100% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+    }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--black);
+      color: var(--cream);
+      padding: 20px 48px;
+      overflow: hidden;
+    }
+    .strip-inner {
+      display: flex;
+      gap: 80px;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+    .strip-item {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      flex-shrink: 0;
+    }
+    .strip-dot { color: var(--orange); margin: 0 12px; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 120px 48px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── OVERLINE ── */
+    .overline {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ── DISPLAY HEADING ── */
+    .display {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+    .display em { font-style: italic; color: var(--orange); }
+
+    /* ── WHAT ── */
+    .what { background: var(--cream); }
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 64px;
+    }
+    .what-left .display { margin-bottom: 28px; }
+    .what-left p { color: var(--mid); font-size: 1.05rem; max-width: 440px; }
+    .what-steps { display: flex; flex-direction: column; gap: 0; }
+    .what-step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .what-step:first-child { border-top: 1px solid var(--border); }
+    .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--border);
+      line-height: 1;
+      padding-top: 4px;
+    }
+    .step-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+    .step-body p { font-size: 0.9rem; color: var(--mid); }
+
+    /* ── ESCALATION ── */
+    .esc-section { background: var(--black); color: var(--cream); }
+    .esc-section .overline { color: var(--orange); }
+    .esc-section .display { color: var(--cream); }
+    .esc-section .display em { color: var(--orange); }
+    .esc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      margin-top: 72px;
+      align-items: start;
+    }
+    .esc-left p { color: #888; font-size: 1.0rem; line-height: 1.7; margin-top: 20px; }
+    .esc-timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .esc-timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 12px; bottom: 12px;
+      width: 1px;
+      background: #333;
+    }
+    .esc-item {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 24px 0;
+      position: relative;
+    }
+    .esc-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .esc-dot.t0 { background: var(--orange); }
+    .esc-dot.t1 { background: #2a2a2a; border: 1px solid #444; }
+    .esc-dot.t2 { background: #2a2a2a; border: 1px solid #444; }
+    .esc-dot.t3 { background: #7f1d1d; border: 1px solid #ef4444; }
+    .esc-dot svg { width: 18px; height: 18px; }
+    .esc-time {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    .esc-item h3 { font-size: 1rem; color: var(--cream); margin-bottom: 4px; font-weight: 600; }
+    .esc-item p { font-size: 0.85rem; color: #777; line-height: 1.5; }
+
+    /* ── FOR SECTION ── */
+    .for-section { background: var(--cream); overflow: hidden; }
+    .for-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 80px; align-items: end; }
+    .for-intro p { color: var(--mid); font-size: 1.05rem; }
+    .for-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .for-card {
+      background: #fff;
+      padding: 40px 28px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .for-card:hover { background: var(--orange); }
+    .for-card:hover h3,
+    .for-card:hover p,
+    .for-card:hover .for-label { color: #fff; }
+    .for-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .for-icon { margin-bottom: 20px; width: 44px; height: 44px; }
+    .for-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--black);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .for-card p { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── PRICING ── */
+    .pricing-section { background: var(--orange); color: #fff; }
+    .pricing-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .pricing-left .display { color: #fff; }
+    .pricing-left .display em { color: var(--warm); font-style: italic; }
+    .pricing-left p { color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 1.05rem; }
+    .price-big {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(5rem, 10vw, 9rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+    .price-big span { font-size: 2rem; vertical-align: top; margin-top: 16px; display: inline-block; }
+    .price-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 8px; }
+    .feature-list { list-style: none; margin: 36px 0; display: flex; flex-direction: column; gap: 14px; }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .feature-list li::before {
+      content: '';
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--orange);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+    .pricing-note { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
+
+    /* ── COMPARE ── */
+    .compare-section { background: var(--cream); }
+    .compare-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 56px; align-items: end; }
+    .compare-intro p { color: var(--mid); }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead tr {
+      border-bottom: 2px solid var(--black);
+    }
+    th {
+      text-align: left;
+      padding: 14px 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    td {
+      padding: 18px 20px;
+      font-size: 0.92rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--black);
+    }
+    .tr-tookit { background: rgba(255,107,53,0.06); }
+    .tr-tookit td { font-weight: 600; }
+    .tr-tookit td:first-child { color: var(--orange); }
+    .price-green { color: var(--green); font-weight: 700; }
+    .price-red { color: #b91c1c; font-weight: 700; }
+    .chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .chip.yes { background: #d1fae5; color: #065f46; }
+    .chip.no { background: #fee2e2; color: #991b1b; }
+    .chip.mid { background: #fef3c7; color: #92400e; }
+
+    /* ── TRUST ── */
+    .trust-section { background: #fff; }
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 64px; }
+    .trust-tile {
+      padding: 48px 40px;
+      border: 1px solid var(--border);
+    }
+    .trust-tile:nth-child(odd) { background: var(--cream); }
+    .trust-icon { margin-bottom: 20px; }
+    .trust-tile h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 10px; }
+    .trust-tile p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--cream); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; margin-top: 64px; align-items: start; }
+    .faq-left p { color: var(--mid); font-size: 0.95rem; margin-top: 16px; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      padding: 22px 0;
+      font-weight: 600;
+      font-size: 0.97rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--black);
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--orange); }
+    .faq-icon {
+      width: 28px; height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      color: var(--mid);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .faq-item.open .faq-icon { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { max-height: 240px; padding-bottom: 22px; }
+
+    /* ── FOUNDER ── */
+    .founder-section { background: var(--black); }
+    .founder-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .founder-inner .display { color: #fff; }
+    .founder-inner .display em { color: var(--orange); }
+    .founder-quote {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.4;
+      border-left: 3px solid var(--orange);
+      padding-left: 28px;
+    }
+    .founder-meta { margin-top: 32px; display: flex; align-items: center; gap: 16px; }
+    .founder-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .founder-name { font-weight: 600; color: #fff; font-size: 0.95rem; }
+    .founder-title { font-size: 0.82rem; color: #666; }
+    .founder-right p { color: #666; font-size: 0.95rem; line-height: 1.75; }
+    .founder-right p + p { margin-top: 16px; }
+    .founder-right .name { color: var(--orange); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--cream);
+      text-align: center;
+      padding: 140px 48px;
+    }
+    .cta-section .display { margin-bottom: 24px; }
+    .cta-section p { color: var(--mid); font-size: 1.05rem; margin-bottom: 40px; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1.5px solid var(--border);
+      color: var(--mid);
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--black); color: var(--black); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8rem; color: #555; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-copy { font-size: 0.8rem; color: #444; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .topbar { padding: 16px 24px; }
+      .nav-right a:not(.nav-pill) { display: none; }
+      .hero { padding: 100px 24px 60px; min-height: auto; }
+      .hero-content { grid-template-columns: 1fr; gap: 32px; }
+      .hero-right { align-items: flex-start; }
+      .hero-desc { text-align: left; max-width: none; }
+      .hero-badges { justify-content: flex-start; }
+      .hero-bg-text { display: none; }
+      .section { padding: 80px 24px; }
+      .strip { padding: 16px 24px; }
+      .what-grid,
+      .esc-grid,
+      .for-intro,
+      .pricing-inner,
+      .compare-intro,
+      .trust-grid,
+      .faq-grid,
+      .founder-inner { grid-template-columns: 1fr; gap: 40px; }
+      .for-cards { grid-template-columns: 1fr 1fr; }
+      .cta-section { padding: 80px 24px; }
+      footer { padding: 32px 24px; }
+    }
+    @media (max-width: 600px) {
+      .for-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar" id="topbar">
+  <a class="logo" href="#">Tookit</a>
+  <nav class="nav-right">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#signup" class="nav-pill">Start free →</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text" aria-hidden="true">TOOKIT</div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badges" style="margin-bottom:28px;">
+        <span class="badge orange">7-day free trial</span>
+        <span class="badge">No app needed</span>
+        <span class="badge">$2.99 / month</span>
+      </div>
+      <h1 class="hero-headline">
+        Never miss<br>
+        a <em>pill</em><br>
+        again.
+      </h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">A daily text. A call if you don't reply. An alert to someone you trust if needed.</p>
+      <a href="#signup" class="btn-main">
+        Get started free
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>scroll</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-inner">
+    <span class="strip-item">A text every day <span class="strip-dot">◆</span></span>
+    <span class="strip-item">A call if you don't reply <span class="strip-dot">◆</span></span>
+    <span class="strip-item">Emergency contact alert <span class="strip-dot">◆</span></span>
+    <span class="strip-item">$2.99 a month <span class="strip-dot">◆</span></span>
+    <span class="strip-item">No app required <span class="strip-dot">◆</span></span>
+    <span class="strip-item">7 days free <span class="strip-dot">◆</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="strip-item">A text every day <span class="strip-dot">◆</span></span>
+    <span class="strip-item">A call if you don't reply <span class="strip-dot">◆</span></span>
+    <span class="strip-item">Emergency contact alert <span class="strip-dot">◆</span></span>
+    <span class="strip-item">$2.99 a month <span class="strip-dot">◆</span></span>
+    <span class="strip-item">No app required <span class="strip-dot">◆</span></span>
+    <span class="strip-item">7 days free <span class="strip-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="what section" id="how">
+  <div class="container">
+    <div class="what-grid">
+      <div class="what-left reveal-left">
+        <span class="overline">How it works</span>
+        <h2 class="display">Three steps.<br><em>Zero stress.</em></h2>
+        <p style="margin-top:20px;">No downloads. No dashboards. No passwords. Sign up once, and we handle the daily follow-up — forever.</p>
+      </div>
+      <div class="what-steps reveal-right">
+        <div class="what-step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Sign up in 2 minutes</h3>
+            <p>Your name, phone number, when you take your medication, and your timezone. That's it.</p>
+          </div>
+        </div>
+        <div class="what-step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>We text you every day</h3>
+            <p><em>"Have you taken your medication? Reply YES, DONE, or TOOK IT."</em> Reply and you're done.</p>
+          </div>
+        </div>
+        <div class="what-step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>We follow up if needed</h3>
+            <p>No reply? We call. Twice. Still nothing — your emergency contact gets a text. Every single day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESCALATION -->
+<section class="esc-section section">
+  <div class="container">
+    <div class="esc-grid">
+      <div class="esc-left reveal-left">
+        <span class="overline">The escalation chain</span>
+        <h2 class="display">What happens<br>when you <em>don't</em><br>respond?</h2>
+        <p>Most reminder apps stop at a notification. Tookit doesn't stop until someone knows you're okay.</p>
+      </div>
+      <div class="esc-timeline reveal-right">
+        <div class="esc-item">
+          <div class="esc-dot t0">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5a1 1 0 011-1h10a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V5z" stroke="white" stroke-width="1.2"/><path d="M3 7l6 4 6-4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="esc-time">0 min — scheduled time</div>
+            <h3>Text message sent</h3>
+            <p>A friendly nudge. Reply YES, DONE, or similar. That's the whole day sorted.</p>
+          </div>
+        </div>
+        <div class="esc-item">
+          <div class="esc-dot t1">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l2.5 2.5a1 1 0 010 1.4l-1 1a8.5 8.5 0 004.6 4.6l1-1a1 1 0 011.4 0L15 15" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="esc-time">+1 hour — no reply</div>
+            <h3>First phone call</h3>
+            <p>We call you. Press 1 for Yes, 2 for No. Ten seconds and you're off.</p>
+          </div>
+        </div>
+        <div class="esc-item">
+          <div class="esc-dot t2">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l2.5 2.5a1 1 0 010 1.4l-1 1a8.5 8.5 0 004.6 4.6l1-1a1 1 0 011.4 0L15 15" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="esc-time">+2 hours — still nothing</div>
+            <h3>Second phone call</h3>
+            <p>One more try. Most people have answered well before this point.</p>
+          </div>
+        </div>
+        <div class="esc-item">
+          <div class="esc-dot t3">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v6l4 2" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round"/><circle cx="9" cy="9" r="6" stroke="#ef4444" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="esc-time">Final step</div>
+            <h3>Emergency contact alerted</h3>
+            <p>"URGENT: [Name] has not confirmed their dose. Please check on them." Up to 2 contacts. Medication name never shared.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="for-section section">
+  <div class="container">
+    <div class="for-intro">
+      <div class="reveal-left">
+        <span class="overline">Who it's for</span>
+        <h2 class="display">Anyone who takes<br>medication. <em>Anyone</em><br>who worries.</h2>
+      </div>
+      <div class="reveal-right">
+        <p style="color:var(--mid);">You don't need a reason to use Tookit. Forgetting happens. Life is full. We're the backup you didn't know you needed.</p>
+      </div>
+    </div>
+    <div class="for-cards reveal">
+      <div class="for-card">
+        <span class="for-label">For</span>
+        <div class="for-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="14" r="7" stroke="#FF6B35" stroke-width="1.5"/>
+            <path d="M6 38c0-8.8 7.2-16 16-16s16 7.2 16 16" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M30 18l2 2 4-4" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Seniors</h3>
+        <p>No app. No passwords. Just a phone that rings. We call you every day — just like a caring friend would.</p>
+      </div>
+      <div class="for-card">
+        <span class="for-label">For</span>
+        <div class="for-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 8v8l5 3" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="22" cy="22" r="13" stroke="#FF6B35" stroke-width="1.5"/>
+            <path d="M13 36l2-3" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M31 36l-2-3" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Busy Adults</h3>
+        <p>Adulting is hard. Meds don't have to be. We text. You reply YES. Less than a coffee a month.</p>
+      </div>
+      <div class="for-card">
+        <span class="for-label">For</span>
+        <div class="for-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="13" r="5.5" stroke="#FF6B35" stroke-width="1.5"/>
+            <circle cx="30" cy="16" r="4" stroke="#FF6B35" stroke-width="1.5"/>
+            <path d="M4 36c0-6.6 5.4-12 12-12" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M40 36c0-5.5-4.5-10-10-10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Parents</h3>
+        <p>School mornings are chaos. Tookit keeps the meds on track and tells you if something goes wrong.</p>
+      </div>
+      <div class="for-card">
+        <span class="for-label">For</span>
+        <div class="for-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 36s-14-8.5-14-18a8 8 0 0114-5.3A8 8 0 0136 18c0 9.5-14 18-14 18z" stroke="#FF6B35" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Caregivers</h3>
+        <p>You can't call them every morning. We can. Sign up someone you love — we'll keep an eye on their meds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section section" id="pricing">
+  <div class="container">
+    <div class="pricing-inner">
+      <div class="reveal-left">
+        <span class="overline" style="color:rgba(255,255,255,0.6);">Pricing</span>
+        <h2 class="display" style="color:#fff;">Simple.<br><em style="color:rgba(255,255,255,0.5);">Honest.</em><br>Affordable.</h2>
+        <p style="color:rgba(255,255,255,0.7);margin-top:20px;">No tiers. No upsells. No "premium features." Everything Tookit does, you get — for two dollars a month.</p>
+      </div>
+      <div class="reveal-right">
+        <div>
+          <div class="price-big"><span>$</span>2.99</div>
+          <div class="price-sub">per month, after your free trial</div>
+        </div>
+        <ul class="feature-list">
+          <li>Up to 2 daily reminders (morning + evening)</li>
+          <li>Your choice of US timezone</li>
+          <li>Escalation phone calls if no response</li>
+          <li>Emergency contact alert to up to 2 people</li>
+          <li>Cancel any time — stops the same day</li>
+          <li>No app. No downloads. No passwords.</li>
+        </ul>
+        <a href="#signup" class="btn-white">
+          Start 7-day free trial
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="pricing-note">No charge today. Credit or debit card required after trial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare-section section">
+  <div class="container">
+    <div class="compare-intro">
+      <div class="reveal-left">
+        <span class="overline">Comparison</span>
+        <h2 class="display">Every competitor<br>charges <em>7–8×</em><br>more.</h2>
+      </div>
+      <div class="reveal-right" style="align-self:end;">
+        <p style="color:var(--mid);">Same core product. Same phone calls. Same peace of mind. The only difference is the price on your card statement.</p>
+      </div>
+    </div>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Price / month</th>
+            <th>Phone calls</th>
+            <th>Emergency alert</th>
+            <th>No app needed</th>
+            <th>Free trial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr-tookit">
+            <td>🟠 Tookit</td>
+            <td class="price-green">$2.99</td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">7 days</span></td>
+          </tr>
+          <tr>
+            <td>Medication Call Reminder</td>
+            <td class="price-red">$14.95</td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip mid">14 days</span></td>
+          </tr>
+          <tr>
+            <td>CareCalls</td>
+            <td class="price-red">$15.00</td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip mid">Limited</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip yes">30 days</span></td>
+          </tr>
+          <tr>
+            <td>Medisafe</td>
+            <td class="price-red">$4.99</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip mid">Limited</span></td>
+            <td><span class="chip no">App required</span></td>
+            <td><span class="chip mid">Limited</span></td>
+          </tr>
+          <tr>
+            <td>Dosecast</td>
+            <td class="price-red">$2.99</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">App required</span></td>
+            <td><span class="chip no">No</span></td>
+          </tr>
+          <tr>
+            <td>Memo24</td>
+            <td>Pay per call</td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Yes</span></td>
+            <td><span class="chip no">No</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section section">
+  <div class="container">
+    <span class="overline reveal">Your privacy</span>
+    <h2 class="display reveal" style="max-width:600px;">Handled with care.<br>Always.</h2>
+    <div class="trust-grid">
+      <div class="trust-tile reveal">
+        <div class="trust-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="8" y="16" width="20" height="14" rx="3" stroke="#FF6B35" stroke-width="1.4"/><path d="M12 16v-4a6 6 0 0112 0v4" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/><circle cx="18" cy="23" r="2" fill="#FF6B35"/></svg>
+        </div>
+        <h3>We never store your medication name</h3>
+        <p>We just remind you to take it. What you're taking is nobody's business but yours — not ours, not anyone else's.</p>
+      </div>
+      <div class="trust-tile reveal">
+        <div class="trust-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 10h20M8 18h14M8 26h10" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Transparent data practices</h3>
+        <p>We work with trusted service partners (Twilio, Stripe) to operate the service. Everything we collect and share is clearly disclosed in our Privacy Policy — no surprises.</p>
+      </div>
+      <div class="trust-tile reveal">
+        <div class="trust-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 6l10 4v8c0 7-5 12-10 14C13 30 8 25 8 18v-8l10-4z" stroke="#FF6B35" stroke-width="1.4" stroke-linejoin="round"/><path d="M13 18l3 3 7-7" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>HIPAA-aligned design</h3>
+        <p>Built with healthcare privacy in mind. Tookit was designed by someone with real HIPAA-compliant systems experience — not a generic SaaS template.</p>
+      </div>
+      <div class="trust-tile reveal">
+        <div class="trust-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="10" stroke="#FF6B35" stroke-width="1.4"/><path d="M18 13v5l3 3" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/><path d="M10 10l16 16" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Cancel any time, same day</h3>
+        <p>Cancel and all texts and calls stop immediately. No billing delays. No lingering messages. That's a promise, not just a policy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section section" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="reveal-left">
+        <span class="overline">FAQ</span>
+        <h2 class="display">Got<br>questions?</h2>
+        <p style="margin-top:16px;">We've heard most of them. Here are the ones that come up most often.</p>
+      </div>
+      <div class="faq-list reveal-right">
+        <div class="faq-item">
+          <div class="faq-q">What happens if I want to cancel? <span class="faq-icon">+</span></div>
+          <div class="faq-a">Cancel any time through Stripe — all texts and calls stop the same day. No further charges. No lingering messages.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do I need a smartphone or app? <span class="faq-icon">+</span></div>
+          <div class="faq-a">No. Any phone that can receive texts and calls works fine. You don't need to download anything or own a smartphone.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What does my emergency contact receive? <span class="faq-icon">+</span></div>
+          <div class="faq-a">"URGENT: [Your name] has not confirmed their medication dose scheduled for [time]. Please check on them." Your medication name is never shared.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I sign up on someone else's behalf? <span class="faq-icon">+</span></div>
+          <div class="faq-a">Yes. Caregivers and family members can sign up for a parent, child, or loved one. Enter their phone as the reminder number and add yourself as an emergency contact.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if I forgot to reply but did take my meds? <span class="faq-icon">+</span></div>
+          <div class="faq-a">Just reply YES to any follow-up text or press 1 on the call. We accept YES, DONE, TOOK IT, TAKEN, YEP, YUP, and similar. No problem at all.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Will you share my data? <span class="faq-icon">+</span></div>
+          <div class="faq-a">We work with service providers to run Tookit. We may share anonymised data with future partners — clearly disclosed in our Privacy Policy. We never sell personal data.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-section section">
+  <div class="container">
+    <div class="founder-inner">
+      <div class="reveal-left">
+        <span class="overline" style="color:var(--orange);">The founder</span>
+        <blockquote class="founder-quote">
+          "Medication adherence is one of the most solvable problems in healthcare. So I solved it."
+        </blockquote>
+        <div class="founder-meta">
+          <div class="founder-avatar">👨‍💻</div>
+          <div>
+            <div class="founder-name">Dhruv Jain</div>
+            <div class="founder-title">Data Scientist · Washington D.C.</div>
+          </div>
+        </div>
+      </div>
+      <div class="founder-right reveal-right">
+        <p>I'm <span class="name">Dhruv</span> — a Data Scientist and ML Engineer based in Washington D.C. I've spent years building AI systems for healthcare, including HIPAA-compliant platforms at Memorial Sloan Kettering Cancer Center.</p>
+        <p>I built Tookit because the existing solutions were overpriced, overly complicated, or both. A medication reminder shouldn't cost $15 a month or require a smartphone. It should just work — a text, a call, a backup if needed. That's it.</p>
+        <p>Tookit is designed to evolve. AI-powered adherence insights, predictive escalation, multi-language support — all coming. But first, the basics, done right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="signup">
+  <div class="reveal">
+    <span class="overline" style="display:block;text-align:center;">Ready?</span>
+    <h2 class="display" style="margin-bottom:20px;">Start for free.<br>Stay for <em>$2.99.</em></h2>
+    <p>7 days free. No credit card needed to start. Cancel any time — stops the same day.</p>
+    <div class="cta-btns">
+      <a href="https://tally.so" target="_blank" class="btn-main" style="font-size:1.05rem; padding:18px 36px;">
+        Sign up — takes 2 minutes
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#how" class="btn-outline">See how it works</a>
+    </div>
+    <p style="font-size:0.8rem;color:var(--mid);margin-top:16px;">No app. No passwords. Just a phone that rings.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Tookit</a>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">HIPAA Notice</a>
+    <a href="#">Emergency Disclaimer</a>
+  </div>
+  <span class="footer-copy">© 2025 Tookit LLC. Made with care in the USA.</span>
+</footer>
+
+<script>
+  // Scroll topbar effect
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', function () {
+      const item = this.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-icon').textContent = '+';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        this.querySelector('.faq-icon').textContent = '−';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
