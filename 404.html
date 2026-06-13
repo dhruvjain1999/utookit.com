@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found — Tookit</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#FF6B35" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--orange:#FF6B35;--cream:#FFF8F2;--black:#111;--mid:#6B5E52;--border:#E8DDD5}
+    html,body{height:100%}
+    body{
+      font-family:'Inter',sans-serif;background:var(--cream);color:var(--black);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:40px 24px;line-height:1.6;min-height:100vh;
+    }
+    .bignum{
+      font-family:'DM Serif Display',serif;font-size:clamp(5rem,18vw,9rem);
+      line-height:1;color:var(--border);letter-spacing:-0.03em;
+    }
+    h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:8px 0 12px;letter-spacing:-0.02em}
+    h1 em{font-style:italic;color:var(--orange)}
+    p{color:var(--mid);max-width:420px;margin:0 auto 32px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;
+      padding:15px 30px;border-radius:100px;font-weight:600;font-size:0.95rem;text-decoration:none;
+      transition:transform .2s,background .2s;
+    }
+    .btn:hover{transform:translateY(-2px);background:#e55a24}
+    .links{margin-top:28px;font-size:0.85rem}
+    .links a{color:var(--mid);text-decoration:none;margin:0 10px}
+    .links a:hover{color:var(--black)}
+  </style>
+</head>
+<body>
+  <div class="bignum">404</div>
+  <h1>This page took its <em>dose</em> and wandered off.</h1>
+  <p>The page you're looking for doesn't exist — or moved. Let's get you back to safe ground.</p>
+  <a class="btn" href="/">
+    Back to home
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <div class="links">
+    <a href="/#how">How it works</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/privacy.html">Privacy</a>
+  </div>
+</body>
+</html>
