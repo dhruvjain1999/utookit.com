@@ -3,11 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tookit — Never Miss a Pill Again</title>
-  <meta name="description" content="A daily text. A phone call if you don't reply. An alert to someone you trust if needed. $2.99/month." />
+  <title>Tookit — Never Miss a Pill Again | $2.99/mo Medication Reminders</title>
+  <meta name="description" content="Tookit sends a daily text reminder to take your medication, calls you if you don't reply, and alerts someone you trust if needed. $2.99/month. 7 days free. No app required." />
+  <link rel="canonical" href="https://utookit.com/" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tookit" />
+  <meta property="og:title" content="Tookit — Never Miss a Pill Again" />
+  <meta property="og:description" content="A daily text. A call if you don't reply. An alert to someone you trust if needed. $2.99/month, 7 days free, no app required." />
+  <meta property="og:url" content="https://utookit.com/" />
+  <meta property="og:image" content="https://utookit.com/og-image.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tookit — never miss a pill again. $2.99/month." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tookit — Never Miss a Pill Again" />
+  <meta name="twitter:description" content="A daily text. A call if you don't reply. An alert to someone you trust if needed. $2.99/month, 7 days free, no app required." />
+  <meta name="twitter:image" content="https://utookit.com/og-image.svg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Tookit",
+    "description": "A medication reminder service that sends a daily text, calls you if you don't reply, and alerts an emergency contact if needed. No app required.",
+    "brand": { "@type": "Brand", "name": "Tookit" },
+    "url": "https://utookit.com/",
+    "image": "https://utookit.com/og-image.svg",
+    "offers": {
+      "@type": "Offer",
+      "price": "2.99",
+      "priceCurrency": "USD",
+      "url": "https://utookit.com/#pricing",
+      "availability": "https://schema.org/InStock",
+      "description": "$2.99 per month after a 7-day free trial. Cancel any time."
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tookit LLC",
+    "url": "https://utookit.com/",
+    "logo": "https://utookit.com/favicon.svg",
+    "founder": { "@type": "Person", "name": "Dhruv Jain" },
+    "areaServed": "US"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What happens if I want to cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Cancel any time through Stripe — all texts and calls stop the same day. No further charges. No lingering messages." } },
+      { "@type": "Question", "name": "Do I need a smartphone or app?", "acceptedAnswer": { "@type": "Answer", "text": "No. Any phone that can receive texts and calls works fine. You don't need to download anything or own a smartphone." } },
+      { "@type": "Question", "name": "What does my emergency contact receive?", "acceptedAnswer": { "@type": "Answer", "text": "A text reading: URGENT: [Your name] has not confirmed their medication dose scheduled for [time]. Please check on them. Your medication name is never shared." } },
+      { "@type": "Question", "name": "Can I sign up on someone else's behalf?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Caregivers and family members can sign up for a parent, child, or loved one. Enter their phone as the reminder number and add yourself as an emergency contact." } },
+      { "@type": "Question", "name": "What if I forgot to reply but did take my meds?", "acceptedAnswer": { "@type": "Answer", "text": "Just reply YES to any follow-up text or press 1 on the call. We accept YES, DONE, TOOK IT, TAKEN, YEP, YUP, and similar." } },
+      { "@type": "Question", "name": "Will you share my data?", "acceptedAnswer": { "@type": "Answer", "text": "We work with service providers (such as Twilio and Stripe) to run Tookit. We may share anonymised data with future partners — clearly disclosed in our Privacy Policy. We never sell personal data." } }
+    ]
+  }
+  </script>
+
+  <noscript>
+    <style>
+      .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,16 +110,38 @@
       overflow-x: hidden;
     }
 
+    /* ── ACCESSIBILITY ── */
+    a:focus-visible, button:focus-visible, .faq-q:focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--black);
+      color: var(--cream);
+      padding: 12px 20px;
+      border-radius: 0 0 8px 0;
+      z-index: 2000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .skip-link:focus { left: 0; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
       transform: translateY(32px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
     .reveal-left {
       opacity: 0;
       transform: translateX(-40px);
@@ -148,7 +248,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 24px;
+      gap: 18px;
       padding-bottom: 8px;
       min-width: 260px;
     }
@@ -176,6 +276,11 @@
     .btn-main:hover { transform: translateY(-2px); background: #e55a24; }
     .btn-main svg { transition: transform 0.2s; }
     .btn-main:hover svg { transform: translateX(4px); }
+    .cta-fine {
+      font-size: 0.78rem;
+      color: var(--mid);
+      letter-spacing: 0.01em;
+    }
     .hero-badges {
       display: flex;
       gap: 10px;
@@ -412,6 +517,17 @@
     }
     .price-big span { font-size: 2rem; vertical-align: top; margin-top: 16px; display: inline-block; }
     .price-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 8px; }
+    .save-note {
+      display: inline-block;
+      margin-top: 14px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
     .feature-list { list-style: none; margin: 36px 0; display: flex; flex-direction: column; gap: 14px; }
     .feature-list li {
       display: flex;
@@ -490,6 +606,7 @@
     .chip.yes { background: #d1fae5; color: #065f46; }
     .chip.no { background: #fee2e2; color: #991b1b; }
     .chip.mid { background: #fef3c7; color: #92400e; }
+    .compare-fine { font-size: 0.78rem; color: var(--mid); margin-top: 16px; }
 
     /* ── TRUST ── */
     .trust-section { background: #fff; }
@@ -502,6 +619,33 @@
     .trust-icon { margin-bottom: 20px; }
     .trust-tile h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 10px; }
     .trust-tile p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+
+    /* ── PARTNERS STRIP ── */
+    .partners {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 40px 48px 80px;
+    }
+    .partners-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px 36px;
+      text-align: center;
+    }
+    .partners-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.85rem;
+      color: var(--mid);
+      font-weight: 500;
+    }
+    .partners-item svg { flex-shrink: 0; }
+    .partners-sep { color: var(--border); }
 
     /* ── FAQ ── */
     .faq-section { background: var(--cream); }
@@ -521,6 +665,11 @@
       gap: 20px;
       color: var(--black);
       user-select: none;
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: inherit;
     }
     .faq-q:hover { color: var(--orange); }
     .faq-icon {
@@ -542,7 +691,7 @@
       color: var(--mid);
       line-height: 1.7;
     }
-    .faq-item.open .faq-a { max-height: 240px; padding-bottom: 22px; }
+    .faq-item.open .faq-a { max-height: 260px; padding-bottom: 22px; }
 
     /* ── FOUNDER ── */
     .founder-section { background: var(--black); }
@@ -605,6 +754,8 @@
     footer {
       background: var(--black);
       padding: 48px;
+    }
+    .footer-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -618,9 +769,46 @@
       text-decoration: none;
     }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .footer-links a { font-size: 0.8rem; color: #555; text-decoration: none; transition: color 0.2s; }
+    .footer-links a { font-size: 0.8rem; color: #aaa; text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--cream); }
-    .footer-copy { font-size: 0.8rem; color: #444; }
+    .footer-disclaimer {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 0.78rem;
+      color: #777;
+      line-height: 1.6;
+    }
+    .footer-disclaimer strong { color: #bbb; }
+    .footer-disclaimer a { color: var(--orange); text-decoration: none; }
+    .footer-disclaimer a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 0.8rem; color: #555; margin-top: 18px; display: block; }
+
+    /* ── MOBILE STICKY CTA ── */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 200;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(255,248,242,0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+    }
+    .mobile-cta a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      padding: 14px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
 
     /* ── MOBILE ── */
     @media (max-width: 900px) {
@@ -634,6 +822,7 @@
       .hero-bg-text { display: none; }
       .section { padding: 80px 24px; }
       .strip { padding: 16px 24px; }
+      .partners { padding: 32px 24px 64px; }
       .what-grid,
       .esc-grid,
       .for-intro,
@@ -643,24 +832,34 @@
       .faq-grid,
       .founder-inner { grid-template-columns: 1fr; gap: 40px; }
       .for-cards { grid-template-columns: 1fr 1fr; }
-      .cta-section { padding: 80px 24px; }
+      .cta-section { padding: 80px 24px 120px; }
       footer { padding: 32px 24px; }
+      .mobile-cta { display: block; }
     }
     @media (max-width: 600px) {
       .for-cards { grid-template-columns: 1fr; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
 
+<a href="#how" class="skip-link">Skip to content</a>
+
 <!-- TOPBAR -->
 <header class="topbar" id="topbar">
-  <a class="logo" href="#">Tookit</a>
-  <nav class="nav-right">
+  <a class="logo" href="#" aria-label="Tookit home">Tookit</a>
+  <nav class="nav-right" aria-label="Primary">
     <a href="#how">How it works</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
-    <a href="#signup" class="nav-pill">Start free →</a>
+    <a href="https://tally.so/r/RGkeMP" target="_blank" rel="noopener" class="nav-pill">Start free →</a>
   </nav>
 </header>
 
@@ -682,10 +881,11 @@
     </div>
     <div class="hero-right">
       <p class="hero-desc">A daily text. A call if you don't reply. An alert to someone you trust if needed.</p>
-      <a href="#signup" class="btn-main">
+      <a href="https://tally.so/r/RGkeMP" target="_blank" rel="noopener" class="btn-main">
         Get started free
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+      <p class="cta-fine">No card to start · Cancel anytime</p>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">
@@ -760,7 +960,7 @@
       </div>
       <div class="esc-timeline reveal-right">
         <div class="esc-item">
-          <div class="esc-dot t0">
+          <div class="esc-dot t0" aria-hidden="true">
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5a1 1 0 011-1h10a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V5z" stroke="white" stroke-width="1.2"/><path d="M3 7l6 4 6-4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
           </div>
           <div>
@@ -770,7 +970,7 @@
           </div>
         </div>
         <div class="esc-item">
-          <div class="esc-dot t1">
+          <div class="esc-dot t1" aria-hidden="true">
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l2.5 2.5a1 1 0 010 1.4l-1 1a8.5 8.5 0 004.6 4.6l1-1a1 1 0 011.4 0L15 15" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
           </div>
           <div>
@@ -780,7 +980,7 @@
           </div>
         </div>
         <div class="esc-item">
-          <div class="esc-dot t2">
+          <div class="esc-dot t2" aria-hidden="true">
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l2.5 2.5a1 1 0 010 1.4l-1 1a8.5 8.5 0 004.6 4.6l1-1a1 1 0 011.4 0L15 15" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
           </div>
           <div>
@@ -790,7 +990,7 @@
           </div>
         </div>
         <div class="esc-item">
-          <div class="esc-dot t3">
+          <div class="esc-dot t3" aria-hidden="true">
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v6l4 2" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round"/><circle cx="9" cy="9" r="6" stroke="#ef4444" stroke-width="1.2"/></svg>
           </div>
           <div>
@@ -819,7 +1019,7 @@
     <div class="for-cards reveal">
       <div class="for-card">
         <span class="for-label">For</span>
-        <div class="for-icon">
+        <div class="for-icon" aria-hidden="true">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="22" cy="14" r="7" stroke="#FF6B35" stroke-width="1.5"/>
             <path d="M6 38c0-8.8 7.2-16 16-16s16 7.2 16 16" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
@@ -831,7 +1031,7 @@
       </div>
       <div class="for-card">
         <span class="for-label">For</span>
-        <div class="for-icon">
+        <div class="for-icon" aria-hidden="true">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M22 8v8l5 3" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
             <circle cx="22" cy="22" r="13" stroke="#FF6B35" stroke-width="1.5"/>
@@ -844,7 +1044,7 @@
       </div>
       <div class="for-card">
         <span class="for-label">For</span>
-        <div class="for-icon">
+        <div class="for-icon" aria-hidden="true">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="13" r="5.5" stroke="#FF6B35" stroke-width="1.5"/>
             <circle cx="30" cy="16" r="4" stroke="#FF6B35" stroke-width="1.5"/>
@@ -857,7 +1057,7 @@
       </div>
       <div class="for-card">
         <span class="for-label">For</span>
-        <div class="for-icon">
+        <div class="for-icon" aria-hidden="true">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M22 36s-14-8.5-14-18a8 8 0 0114-5.3A8 8 0 0136 18c0 9.5-14 18-14 18z" stroke="#FF6B35" stroke-width="1.5" stroke-linejoin="round"/>
           </svg>
@@ -876,12 +1076,13 @@
       <div class="reveal-left">
         <span class="overline" style="color:rgba(255,255,255,0.6);">Pricing</span>
         <h2 class="display" style="color:#fff;">Simple.<br><em style="color:rgba(255,255,255,0.5);">Honest.</em><br>Affordable.</h2>
-        <p style="color:rgba(255,255,255,0.7);margin-top:20px;">No tiers. No upsells. No "premium features." Everything Tookit does, you get — for two dollars a month.</p>
+        <p style="color:rgba(255,255,255,0.7);margin-top:20px;">No tiers. No upsells. No "premium features." Everything Tookit does, you get — for under three dollars a month.</p>
       </div>
       <div class="reveal-right">
         <div>
           <div class="price-big"><span>$</span>2.99</div>
           <div class="price-sub">per month, after your free trial</div>
+          <span class="save-note">≈ $144 a year less than the $14.95 services</span>
         </div>
         <ul class="feature-list">
           <li>Up to 2 daily reminders (morning + evening)</li>
@@ -891,9 +1092,9 @@
           <li>Cancel any time — stops the same day</li>
           <li>No app. No downloads. No passwords.</li>
         </ul>
-        <a href="#signup" class="btn-white">
+        <a href="https://tally.so/r/RGkeMP" target="_blank" rel="noopener" class="btn-white">
           Start 7-day free trial
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <p class="pricing-note">No charge today. Credit or debit card required after trial.</p>
       </div>
@@ -917,12 +1118,12 @@
       <table>
         <thead>
           <tr>
-            <th>Service</th>
-            <th>Price / month</th>
-            <th>Phone calls</th>
-            <th>Emergency alert</th>
-            <th>No app needed</th>
-            <th>Free trial</th>
+            <th scope="col">Service</th>
+            <th scope="col">Price / month</th>
+            <th scope="col">Phone calls</th>
+            <th scope="col">Emergency alert</th>
+            <th scope="col">No app needed</th>
+            <th scope="col">Free trial</th>
           </tr>
         </thead>
         <tbody>
@@ -976,6 +1177,7 @@
           </tr>
         </tbody>
       </table>
+      <p class="compare-fine">Competitor pricing and features as publicly listed at time of writing. Compare for yourself — we think you'll find Tookit does the same core job for far less.</p>
     </div>
   </div>
 </section>
@@ -987,28 +1189,28 @@
     <h2 class="display reveal" style="max-width:600px;">Handled with care.<br>Always.</h2>
     <div class="trust-grid">
       <div class="trust-tile reveal">
-        <div class="trust-icon">
+        <div class="trust-icon" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="8" y="16" width="20" height="14" rx="3" stroke="#FF6B35" stroke-width="1.4"/><path d="M12 16v-4a6 6 0 0112 0v4" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/><circle cx="18" cy="23" r="2" fill="#FF6B35"/></svg>
         </div>
         <h3>We never store your medication name</h3>
         <p>We just remind you to take it. What you're taking is nobody's business but yours — not ours, not anyone else's.</p>
       </div>
       <div class="trust-tile reveal">
-        <div class="trust-icon">
+        <div class="trust-icon" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 10h20M8 18h14M8 26h10" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/></svg>
         </div>
         <h3>Transparent data practices</h3>
-        <p>We work with trusted service partners (Twilio, Stripe) to operate the service. Everything we collect and share is clearly disclosed in our Privacy Policy — no surprises.</p>
+        <p>We work with trusted service partners (Twilio, Stripe) to operate the service. Everything we collect and share is clearly disclosed in our <a href="privacy.html" style="color:var(--orange);">Privacy Policy</a> — no surprises.</p>
       </div>
       <div class="trust-tile reveal">
-        <div class="trust-icon">
+        <div class="trust-icon" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 6l10 4v8c0 7-5 12-10 14C13 30 8 25 8 18v-8l10-4z" stroke="#FF6B35" stroke-width="1.4" stroke-linejoin="round"/><path d="M13 18l3 3 7-7" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h3>HIPAA-aligned design</h3>
         <p>Built with healthcare privacy in mind. Tookit was designed by someone with real HIPAA-compliant systems experience — not a generic SaaS template.</p>
       </div>
       <div class="trust-tile reveal">
-        <div class="trust-icon">
+        <div class="trust-icon" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="10" stroke="#FF6B35" stroke-width="1.4"/><path d="M18 13v5l3 3" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/><path d="M10 10l16 16" stroke="#FF6B35" stroke-width="1.4" stroke-linecap="round"/></svg>
         </div>
         <h3>Cancel any time, same day</h3>
@@ -1017,6 +1219,26 @@
     </div>
   </div>
 </section>
+
+<!-- PARTNERS / INFRASTRUCTURE STRIP -->
+<div class="partners">
+  <div class="partners-inner">
+    <span class="partners-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1l6 2.4v4C14 12 11 14.5 8 15.5 5 14.5 2 12 2 7.4v-4L8 1z" stroke="#6B5E52" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Reminders delivered via Twilio
+    </span>
+    <span class="partners-sep" aria-hidden="true">·</span>
+    <span class="partners-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="6" width="11" height="8" rx="2" stroke="#6B5E52" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 016 0V6" stroke="#6B5E52" stroke-width="1.2"/></svg>
+      Payments secured by Stripe
+    </span>
+    <span class="partners-sep" aria-hidden="true">·</span>
+    <span class="partners-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="#6B5E52" stroke-width="1.2"/><path d="M5 8.2l2 2 4-4.4" stroke="#6B5E52" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Built with care in the USA
+    </span>
+  </div>
+</div>
 
 <!-- FAQ -->
 <section class="faq-section section" id="faq">
@@ -1029,28 +1251,28 @@
       </div>
       <div class="faq-list reveal-right">
         <div class="faq-item">
-          <div class="faq-q">What happens if I want to cancel? <span class="faq-icon">+</span></div>
+          <button class="faq-q" aria-expanded="false">What happens if I want to cancel? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">Cancel any time through Stripe — all texts and calls stop the same day. No further charges. No lingering messages.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Do I need a smartphone or app? <span class="faq-icon">+</span></div>
+          <button class="faq-q" aria-expanded="false">Do I need a smartphone or app? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">No. Any phone that can receive texts and calls works fine. You don't need to download anything or own a smartphone.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">What does my emergency contact receive? <span class="faq-icon">+</span></div>
+          <button class="faq-q" aria-expanded="false">What does my emergency contact receive? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">"URGENT: [Your name] has not confirmed their medication dose scheduled for [time]. Please check on them." Your medication name is never shared.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Can I sign up on someone else's behalf? <span class="faq-icon">+</span></div>
+          <button class="faq-q" aria-expanded="false">Can I sign up on someone else's behalf? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">Yes. Caregivers and family members can sign up for a parent, child, or loved one. Enter their phone as the reminder number and add yourself as an emergency contact.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">What if I forgot to reply but did take my meds? <span class="faq-icon">+</span></div>
+          <button class="faq-q" aria-expanded="false">What if I forgot to reply but did take my meds? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">Just reply YES to any follow-up text or press 1 on the call. We accept YES, DONE, TOOK IT, TAKEN, YEP, YUP, and similar. No problem at all.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Will you share my data? <span class="faq-icon">+</span></div>
-          <div class="faq-a">We work with service providers to run Tookit. We may share anonymised data with future partners — clearly disclosed in our Privacy Policy. We never sell personal data.</div>
+          <button class="faq-q" aria-expanded="false">Will you share my data? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a">We work with service providers to run Tookit. We may share anonymised data with future partners — clearly disclosed in our <a href="privacy.html" style="color:var(--orange);">Privacy Policy</a>. We never sell personal data.</div>
         </div>
       </div>
     </div>
@@ -1067,7 +1289,7 @@
           "Medication adherence is one of the most solvable problems in healthcare. So I solved it."
         </blockquote>
         <div class="founder-meta">
-          <div class="founder-avatar">👨‍💻</div>
+          <div class="founder-avatar" aria-hidden="true">👨‍💻</div>
           <div>
             <div class="founder-name">Dhruv Jain</div>
             <div class="founder-title">Data Scientist · Washington D.C.</div>
@@ -1090,9 +1312,9 @@
     <h2 class="display" style="margin-bottom:20px;">Start for free.<br>Stay for <em>$2.99.</em></h2>
     <p>7 days free. No credit card needed to start. Cancel any time — stops the same day.</p>
     <div class="cta-btns">
-      <a href="https://tally.so/r/RGkeMP" target="_blank" class="btn-main" style="font-size:1.05rem; padding:18px 36px;">
+      <a href="https://tally.so/r/RGkeMP" target="_blank" rel="noopener" class="btn-main" style="font-size:1.05rem; padding:18px 36px;">
         Sign up — takes 2 minutes
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <a href="#how" class="btn-outline">See how it works</a>
     </div>
@@ -1102,15 +1324,28 @@
 
 <!-- FOOTER -->
 <footer>
-  <a class="footer-logo" href="#">Tookit</a>
-  <div class="footer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">HIPAA Notice</a>
-    <a href="#">Emergency Disclaimer</a>
+  <div class="footer-top">
+    <a class="footer-logo" href="#" aria-label="Tookit home">Tookit</a>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="hipaa.html">HIPAA Notice</a>
+      <a href="disclaimer.html">Emergency Disclaimer</a>
+    </nav>
   </div>
-  <span class="footer-copy">© 2025 Tookit LLC. Made with care in the USA.</span>
+  <p class="footer-disclaimer">
+    <strong>Tookit is not an emergency service.</strong> It sends medication reminders via text and automated phone call and is not a substitute for emergency services or professional medical care. In a medical emergency, call 911 immediately. Emergency-contact alerts are a courtesy notification only and are not guaranteed to be delivered in real time. By signing up you acknowledge Tookit is a supplemental reminder service. <a href="disclaimer.html">Read the full disclaimer →</a>
+  </p>
+  <span class="footer-copy">© 2026 Tookit LLC. Made with care in the USA.</span>
 </footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta">
+  <a href="https://tally.so/r/RGkeMP" target="_blank" rel="noopener">
+    Start free — 7 days, no card
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
 
 <script>
   // Scroll topbar effect
@@ -1138,10 +1373,13 @@
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item').forEach(i => {
         i.classList.remove('open');
+        const btn = i.querySelector('.faq-q');
+        btn.setAttribute('aria-expanded', 'false');
         i.querySelector('.faq-icon').textContent = '+';
       });
       if (!isOpen) {
         item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
         this.querySelector('.faq-icon').textContent = '−';
       }
     });
