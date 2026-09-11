@@ -565,6 +565,32 @@
     }
     .btn-white:hover { transform: translateY(-2px); }
     .pricing-note { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
+.price-toggle { display: inline-flex; gap: 6px; background: rgba(255,255,255,0.14); padding: 5px; border-radius: 100px; margin-bottom: 24px; }
+.price-toggle-btn {
+background: none;
+border: none;
+color: rgba(255,255,255,0.75);
+font-family: inherit;
+font-weight: 600;
+font-size: 0.85rem;
+padding: 9px 18px;
+border-radius: 100px;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background 0.2s, color 0.2s;
+}
+.price-toggle-btn.active { background: #fff; color: var(--orange); }
+.price-toggle-badge {
+background: var(--warm);
+color: #fff;
+font-size: 0.68rem;
+font-weight: 700;
+padding: 2px 8px;
+border-radius: 100px;
+}
+.price-toggle-btn.active .price-toggle-badge { background: var(--green); }
 
     /* ── COMPARE ── */
     .compare-section { background: var(--cream); }
@@ -1082,10 +1108,14 @@
         <p style="color:rgba(255,255,255,0.7);margin-top:20px;">No tiers. No upsells. No "premium features." Everything Tookit does, you get — for under three dollars a month.</p>
       </div>
       <div class="reveal-right">
+        <div class="price-toggle" role="tablist" aria-label="Billing period">
+          <button type="button" class="price-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true">Monthly</button>
+          <button type="button" class="price-toggle-btn" data-plan="yearly" role="tab" aria-selected="false">Yearly <span class="price-toggle-badge">Save 8%</span></button>
+        </div>
         <div>
-          <div class="price-big"><span>$</span>2.99</div>
-          <div class="price-sub">per month, after your free trial</div>
-          <span class="save-note">≈ $144 a year less than the $14.95 services</span>
+          <div class="price-big"><span>$</span><span id="priceAmount">2.99</span></div>
+          <div class="price-sub" id="priceSub">per month, after your free trial</div>
+          <span class="save-note" id="priceSaveNote">≈ $144 a year less than the $14.95 services</span>
         </div>
         <ul class="feature-list">
           <li>A daily reminder at the time you choose</li>
@@ -1370,7 +1400,32 @@
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
   // FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(q => {
+  // Pricing toggle (monthly / yearly)
+(function () {
+const toggleBtns = document.querySelectorAll('.price-toggle-btn');
+const amountEl = document.getElementById('priceAmount');
+const subEl = document.getElementById('priceSub');
+const noteEl = document.getElementById('priceSaveNote');
+if (!toggleBtns.length || !amountEl) return;
+const plans = {
+monthly: { amount: '2.99', sub: 'per month, after your free trial', note: '≈ $144 a year less than the $14.95 services' },
+yearly: { amount: '32.99', sub: 'per year, after your free trial — about $2.75/mo', note: 'Save $2.89 vs. paying month to month' }
+};
+toggleBtns.forEach(btn => {
+btn.addEventListener('click', () => {
+const plan = btn.dataset.plan;
+toggleBtns.forEach(b => {
+b.classList.toggle('active', b === btn);
+b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+});
+amountEl.textContent = plans[plan].amount;
+subEl.textContent = plans[plan].sub;
+noteEl.textContent = plans[plan].note;
+});
+});
+})();
+
+document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', function () {
       const item = this.parentElement;
       const isOpen = item.classList.contains('open');
