@@ -513,12 +513,14 @@
     .pricing-left p { color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 1.05rem; }
     .price-big {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(5rem, 10vw, 9rem);
+      font-size: clamp(6rem, 13vw, 11rem);
       line-height: 1;
       letter-spacing: -0.04em;
       color: #fff;
     }
-    .price-big span { font-size: 2rem; vertical-align: top; margin-top: 16px; display: inline-block; }
+    .price-big .price-currency { font-size: 2.4rem; vertical-align: top; margin-top: 22px; display: inline-block; }
+    .price-big .price-decimal { font-size: 3.2rem; vertical-align: top; margin-top: 30px; display: inline-block; }
+    .price-display { margin-top: 4px; }
     .price-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 8px; }
     .save-note {
       display: inline-block;
@@ -565,7 +567,7 @@
     }
     .btn-white:hover { transform: translateY(-2px); }
     .pricing-note { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
-.price-toggle { display: inline-flex; gap: 6px; background: rgba(255,255,255,0.14); padding: 5px; border-radius: 100px; margin-bottom: 24px; }
+.price-toggle { display: inline-flex; gap: 6px; background: rgba(255,255,255,0.14); padding: 5px; border-radius: 100px; margin-bottom: 36px; }
 .price-toggle-btn {
 background: none;
 border: none;
@@ -1112,8 +1114,8 @@ border-radius: 100px;
           <button type="button" class="price-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true">Monthly</button>
           <button type="button" class="price-toggle-btn" data-plan="yearly" role="tab" aria-selected="false">Yearly <span class="price-toggle-badge">Save 8%</span></button>
         </div>
-        <div>
-          <div class="price-big"><span>$</span><span id="priceAmount">2.99</span></div>
+        <div class="price-display">
+          <div class="price-big"><span class="price-currency">$</span><span id="priceWhole">2</span><span class="price-decimal">.99</span></div>
           <div class="price-sub" id="priceSub">per month, after your free trial</div>
           <span class="save-note" id="priceSaveNote">≈ $144 a year less than the $14.95 services</span>
         </div>
@@ -1403,13 +1405,13 @@ border-radius: 100px;
   // Pricing toggle (monthly / yearly)
 (function () {
 const toggleBtns = document.querySelectorAll('.price-toggle-btn');
-const amountEl = document.getElementById('priceAmount');
+const wholeEl = document.getElementById('priceWhole');
 const subEl = document.getElementById('priceSub');
 const noteEl = document.getElementById('priceSaveNote');
-if (!toggleBtns.length || !amountEl) return;
+if (!toggleBtns.length || !wholeEl) return;
 const plans = {
-monthly: { amount: '2.99', sub: 'per month, after your free trial', note: '≈ $144 a year less than the $14.95 services' },
-yearly: { amount: '32.99', sub: 'per year, after your free trial — about $2.75/mo', note: 'Save $2.89 vs. paying month to month' }
+monthly: { whole: '2', sub: 'per month, after your free trial', note: '≈ $144 a year less than the $14.95 services' },
+yearly: { whole: '32', sub: 'per year, after your free trial — about $2.75/mo', note: 'Save $2.89 vs. paying month to month' }
 };
 toggleBtns.forEach(btn => {
 btn.addEventListener('click', () => {
@@ -1418,7 +1420,7 @@ toggleBtns.forEach(b => {
 b.classList.toggle('active', b === btn);
 b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
 });
-amountEl.textContent = plans[plan].amount;
+wholeEl.textContent = plans[plan].whole;
 subEl.textContent = plans[plan].sub;
 noteEl.textContent = plans[plan].note;
 });
