@@ -413,6 +413,13 @@
       color: var(--black);
     }
     .step-body p { font-size: 0.9rem; color: var(--mid); }
+.msg-mockup { margin-top: 32px; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 18px 18px 20px; max-width: 380px; box-shadow: 0 20px 40px -20px rgba(17,17,17,0.15); }
+.msg-mockup-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+.msg-mockup-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+.msg-mockup-label { margin-left: 6px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mid); }
+.msg-bubble { font-size: 0.88rem; line-height: 1.5; padding: 10px 14px; border-radius: 16px; max-width: 85%; margin-bottom: 8px; }
+.msg-in { background: var(--cream); color: var(--black); border-bottom-left-radius: 4px; }
+.msg-out { background: var(--orange); color: #fff; margin-left: auto; border-bottom-right-radius: 4px; font-weight: 600; }
 
     /* ── ESCALATION ── */
     .esc-section { background: var(--black); color: var(--cream); }
@@ -952,6 +959,12 @@ border-radius: 100px;
         <span class="overline">How it works</span>
         <h2 class="display">Three steps.<br><em>Zero stress.</em></h2>
         <p style="margin-top:20px;">No downloads. No dashboards. No passwords. Sign up once, and we handle the daily follow-up — forever.</p>
+      <div class="msg-mockup" aria-hidden="true">
+        <div class="msg-mockup-bar"><span class="msg-mockup-dot"></span><span class="msg-mockup-dot"></span><span class="msg-mockup-dot"></span><span class="msg-mockup-label">Messages</span></div>
+        <div class="msg-bubble msg-in">Hey Mom — have you taken your medication (after breakfast)? Reply YES, DONE, or TOOK IT.</div>
+        <div class="msg-bubble msg-out">YES</div>
+        <div class="msg-bubble msg-in">🎉 Nice — see you tomorrow, Mom!</div>
+      </div>
       </div>
       <div class="what-steps reveal-right">
         <div class="what-step">
@@ -1309,6 +1322,10 @@ border-radius: 100px;
           <button class="faq-q" aria-expanded="false">Will you share my data? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">We work with service providers to run Tookit. We may share anonymised data with future partners — clearly disclosed in our <a href="privacy.html" style="color:var(--orange);">Privacy Policy</a>. We never sell personal data.</div>
         </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I personalize my reminder message? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a">Yes. Add a nickname (like "Mom") and a short one-line note (like "after breakfast") when you sign up, and we’ll work them into your daily text or call. No medication or health details, please — just a name and a friendly note.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1366,6 +1383,7 @@ border-radius: 100px;
       <a href="terms.html">Terms of Service</a>
       <a href="hipaa.html">HIPAA Notice</a>
       <a href="disclaimer.html">Emergency Disclaimer</a>
+      <a href="mailto:mail2dhruvjain@gmail.com">Contact / Support</a>
     </nav>
   </div>
   <p class="footer-disclaimer">
