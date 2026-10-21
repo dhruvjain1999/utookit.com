@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — Tookit</title>
+  <meta name="description" content="Thank you for signing up for Tookit medication reminders." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://utookit.com/thank-you.html" />
+  <meta name="theme-color" content="#FF6B35" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--orange:#FF6B35;--cream:#FFF8F2;--black:#111;--mid:#6B5E52;--border:#E8DDD5}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--black);line-height:1.7;font-size:17px;min-height:100vh;display:flex;flex-direction:column}
+    .topbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:rgba(255,248,242,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:10}
+    .logo{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--orange);text-decoration:none}
+    .back{font-size:0.85rem;color:var(--mid);text-decoration:none;font-weight:500}
+    .back:hover{color:var(--black)}
+    main{flex:1}
+    .wrap{max-width:720px;margin:0 auto;padding:72px 32px 100px}
+    .tick{width:64px;height:64px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+    h1{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,5vw,3rem);letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px}
+    .lead{color:#3a352f;font-size:1.1rem;margin-bottom:40px}
+    h2{font-family:'DM Serif Display',serif;font-size:1.5rem;margin:0 0 16px}
+    ol{list-style:none;counter-reset:step;margin-bottom:40px}
+    ol li{counter-increment:step;position:relative;background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 22px 18px 64px;margin-bottom:12px;color:#3a352f}
+    ol li::before{content:counter(step);position:absolute;left:20px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:1px solid var(--border);color:var(--orange);font-weight:700;font-size:0.9rem;display:flex;align-items:center;justify-content:center}
+    ol li strong{color:var(--black);display:block}
+    p{color:#3a352f;margin-bottom:16px}
+    a{color:var(--orange)}
+    .callout{background:#fff;border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:8px;padding:18px 22px;margin:8px 0 32px;color:#3a352f;font-size:0.95rem}
+    .btn{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:999px;margin-right:12px;margin-bottom:12px}
+    .btn:hover{background:#e85a26}
+    .btn.ghost{background:transparent;color:var(--black);border:1px solid var(--border)}
+    .btn.ghost:hover{background:#fff}
+    footer{background:var(--black);padding:32px;text-align:center}
+    footer a{color:#aaa;text-decoration:none;margin:0 10px;font-size:0.8rem;display:inline-block}
+    footer a:hover{color:var(--cream)}
+    .copy{color:#555;font-size:0.8rem;margin-top:14px;display:block}
+    @media (max-width:600px){.topbar{padding:14px 16px}.wrap{padding:48px 16px 72px}ol li{padding-left:58px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">Tookit</a>
+    <a class="back" href="index.html">← Back to home</a>
+  </header>
+  <main>
+    <div class="wrap">
+      <div class="tick" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </div>
+      <h1>Thank you — you're all set.</h1>
+      <p class="lead">Your Tookit subscription is confirmed. From here, we'll take care of the reminding.</p>
+
+      <h2>What happens next</h2>
+      <ol>
+        <li><strong>A confirmation email, within a few minutes</strong>What you paid, your plan, how your reminders work, and your reminder schedule for the next 30 days.</li>
+        <li><strong>A welcome text to your phone</strong>From Tookit, confirming you're signed up. Your emergency contacts get a one-time text saying they were added.</li>
+        <li><strong>Your first reminder at your chosen time</strong>Reply YES, DONE or TOOK IT to a text, or press 1 on a call, and we stop for that dose.</li>
+      </ol>
+
+      <div class="callout">
+        <strong>No email after 15 minutes?</strong> Check your spam or promotions folder, and make sure the email you used at checkout matches the one on your sign-up form. Still nothing? Write to <a href="mailto:support@utookit.com">support@utookit.com</a>.
+      </div>
+
+      <a class="btn" href="index.html">Back to Tookit</a>
+      <a class="btn ghost" href="https://billing.stripe.com/p/login/6oUbJ386Xg9Z08S5dQ5EY00">Manage subscription</a>
+    </div>
+  </main>
+  <footer>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="hipaa.html">HIPAA Notice</a>
+    <a href="disclaimer.html">Emergency Disclaimer</a>
+    <span class="copy">© 2026 Tookit LLC. Made with care in the USA.</span>
+  </footer>
+</body>
+</html>
