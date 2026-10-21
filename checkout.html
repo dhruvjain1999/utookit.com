@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taking you to checkout — Tookit</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#FF6B35" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#FFF8F2;color:#111;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;text-align:center}
+    .box{max-width:440px}
+    .logo{font-family:Georgia,serif;font-size:1.8rem;color:#FF6B35;margin-bottom:24px}
+    h1{font-family:Georgia,serif;font-size:1.6rem;font-weight:normal;margin-bottom:10px}
+    p{color:#3a352f;line-height:1.6;margin-bottom:18px}
+    .spin{width:34px;height:34px;border:3px solid #E8DDD5;border-top-color:#FF6B35;border-radius:50%;margin:0 auto 22px;animation:s 0.9s linear infinite}
+    @keyframes s{to{transform:rotate(360deg)}}
+    a.btn{display:block;background:#FF6B35;color:#fff;text-decoration:none;font-weight:600;padding:14px 20px;border-radius:999px;margin:10px 0}
+    a.btn.ghost{background:#fff;color:#111;border:1px solid #E8DDD5}
+    #choose{display:none}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo">Tookit</div>
+    <div id="going">
+      <div class="spin" aria-hidden="true"></div>
+      <h1>Taking you to secure checkout…</h1>
+      <p>One last step: add your card with Stripe. Nothing is charged during your 7-day free trial.</p>
+    </div>
+    <div id="choose">
+      <h1>Choose your plan</h1>
+      <p>Both start with 7 days free. Prices are plus any applicable sales tax.</p>
+      <a class="btn" id="mLink" href="https://buy.stripe.com/7sY6oJcnd2j9dZI35I5EY02">Monthly — $2.99 a month</a>
+      <a class="btn ghost" id="yLink" href="https://buy.stripe.com/6oU28tbj95vldZIaya5EY01">Yearly — $32.99 a year (save 8%)</a>
+    </div>
+  </div>
+  <script>
+    // Tally sends people here as checkout.html?plan=<their plan answer>&email=<their email>.
+    // Forward to the right Stripe link with the email filled in, so Stripe and the sign-up form use the same email.
+    (function () {
+      var LINKS = {
+        monthly: 'https://buy.stripe.com/7sY6oJcnd2j9dZI35I5EY02',
+        yearly: 'https://buy.stripe.com/6oU28tbj95vldZIaya5EY01'
+      };
+      var q = new URLSearchParams(location.search);
+      var plan = (q.get('plan') || '').toLowerCase();
+      var email = (q.get('email') || '').trim();
+      var suffix = /^\S+@\S+\.\S+$/.test(email) ? '?prefilled_email=' + encodeURIComponent(email) : '';
+      document.getElementById('mLink').href = LINKS.monthly + suffix;
+      document.getElementById('yLink').href = LINKS.yearly + suffix;
+      var which = /year|annual/.test(plan) ? 'yearly' : /month/.test(plan) ? 'monthly' : '';
+      if (which) {
+        location.replace(LINKS[which] + suffix);
+      } else {
+        document.getElementById('going').style.display = 'none';
+        document.getElementById('choose').style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

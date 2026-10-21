@@ -1129,13 +1129,14 @@ border-radius: 100px;
         </div>
         <div class="price-display">
           <div class="price-big"><span class="price-currency">$</span><span id="priceWhole">2</span><span class="price-decimal">.99</span></div>
-          <div class="price-sub" id="priceSub">per month, after your free trial</div>
+          <div class="price-sub" id="priceSub">per month + applicable tax, after your free trial</div>
           <span class="save-note" id="priceSaveNote">≈ $144 a year less than the $14.95 services</span>
         </div>
         <ul class="feature-list">
           <li>A daily reminder at the time you choose</li>
           <li>Your choice of US timezone</li>
-          <li>Up to 3 follow-ups if no response — text or call, your choice</li>
+          <li>Up to 3 reminders if no response — text or call, 15 minutes to 5 hours apart, your choice</li>
+          <li>Pause, skip a day or change your time just by texting us</li>
           <li>Emergency contact alert to up to 2 people</li>
           <li>Cancel any time — stops the same day</li>
           <li>No app. No downloads. No passwords.</li>
@@ -1144,7 +1145,7 @@ border-radius: 100px;
           Start 7-day free trial
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <p class="pricing-note">No charge today. Credit or debit card required after trial.</p>
+        <p class="pricing-note">No charge today. Credit or debit card required after trial. One free trial per person.</p>
       </div>
     </div>
   </div>
@@ -1326,6 +1327,18 @@ border-radius: 100px;
           <button class="faq-q" aria-expanded="false">Can I personalize my reminder message? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">Yes. Add a nickname (like "Mom") and a short one-line note (like "after breakfast") when you sign up, and we’ll work them into your daily text or call. No medication or health details, please — just a name and a friendly note.</div>
         </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I pause, skip or change my reminder time? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a">Yes — just text us. Reply PAUSE (or PAUSE 7 for a week away), RESUME, SKIP (no more reminders today), or TIME 9AM to move your reminder. You also choose how long we wait between reminders when you sign up: anywhere from 15 minutes to 5 hours.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can a family member get updates too? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a">Yes. Add a caregiver email when you sign up and they’ll get a copy of the welcome email, a weekly summary, and an email if a dose goes unconfirmed. Emergency contacts still get a text as usual.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Is the free trial really free? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a">Yes — nothing is charged for 7 days, and Stripe emails you before the trial ends. The trial is one per person, phone number and card; if you’ve had one before, your plan starts straight away. Prices are plus any applicable sales tax.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1428,8 +1441,8 @@ const subEl = document.getElementById('priceSub');
 const noteEl = document.getElementById('priceSaveNote');
 if (!toggleBtns.length || !wholeEl) return;
 const plans = {
-monthly: { whole: '2', sub: 'per month, after your free trial', note: '≈ $144 a year less than the $14.95 services' },
-yearly: { whole: '32', sub: 'per year, after your free trial — about $2.75/mo', note: 'Save $2.89 vs. paying month to month' }
+monthly: { whole: '2', sub: 'per month + applicable tax, after your free trial', note: '≈ $144 a year less than the $14.95 services' },
+yearly: { whole: '32', sub: 'per year + applicable tax, after your free trial — about $2.75/mo', note: 'Save $2.89 vs. paying month to month' }
 };
 toggleBtns.forEach(btn => {
 btn.addEventListener('click', () => {
